@@ -6,4 +6,5 @@ urlpatterns = patterns('',
    url(r'^user/', include('registration.backends.simple.urls')),
    url(r'^user/', include('django.contrib.auth.urls')),
    url(r'^question/create/$', QuestionCreateView.as_view(), name='question_create'),
+   url(r'question/$', QuestionListView.as_view(), name='question_list'),
 )

@@ -13,8 +13,14 @@ class QuestionCreateView(CreateView):
   model = Question
   template_name = "question/question_form.html"
   fields = ['title', 'description']
-  success_url = reverse_lazy('home')
+  success_url = reverse_lazy('question_list')
 
   def form_valid(self, form):
        form.instance.user = self.request.user
        return super(QuestionCreateView, self).form_valid(form)
+
+from django.views.generic import ListView
+
+class QuestionListView(ListView):
+   model = Question
+   template_name = "question/question_list.html"

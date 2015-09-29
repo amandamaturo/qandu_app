@@ -24,6 +24,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                   {% if user.is.authenticated %}
+                  <li><a href="{% url 'question_list' %}">Questions</a></li>
                   <li><a href="{% url 'question_create' %}">Add question</a></li>
                   <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                   {% else %}
