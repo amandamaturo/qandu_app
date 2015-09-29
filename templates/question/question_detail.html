@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ question.title }}</h1>
+<p>{{ question.description }}</p>
+<p>Asked by {{ question.user.username }} on {{ question.created_at }}</p>
+{% endblock %}

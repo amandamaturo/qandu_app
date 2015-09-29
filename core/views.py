@@ -24,3 +24,9 @@ from django.views.generic import ListView
 class QuestionListView(ListView):
    model = Question
    template_name = "question/question_list.html"
+
+from django.views.generic import DetailView
+
+class QuestionDetailView(DetailView):
+  model = Question
+  template_name = 'question/question_detail.html'
