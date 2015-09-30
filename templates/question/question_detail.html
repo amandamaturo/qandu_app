@@ -5,5 +5,6 @@
 <p>Asked by {{ question.user.username }} on {{ question.created_at }}</p>
 {% if question.user == user %}
 <p><a href="{% url 'question_update' pk=question.id %}">Edit question</a></p>
+<p><a href="{% url 'question_delete' pk=question.id %}">Delete question</a></p>
 {% endif %}
 {% endblock %}
