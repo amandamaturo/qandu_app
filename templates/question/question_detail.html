@@ -13,6 +13,9 @@
 {% for answer in answers %}
 <div class="panel">
   <p>{{ answer.text }}</p>
+  {% if answer.user == user %}
+  <p><a href="{% url 'answer_update' question_pk=question.id answer_pk=answer.id %}">Edit answer</a></p>
+  {% endif %}
   <p>Answered by {{ answer.user.username }} on {{ answer.created_at }}</p>
 </div>
 {% endfor %}

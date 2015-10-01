@@ -11,4 +11,5 @@ urlpatterns = patterns('',
    url(r'^question/update/(?P<pk>\d+)/$', QuestionUpdateView.as_view(), name='question_update'),
    url(r'^question/delete/(?P<pk>\d+)/$', QuestionDeleteView.as_view(), name='question_delete'),
    url(r'^question/(?P<pk>\d+)/answer/create/$', AnswerCreateView.as_view(), name='answer_create'),
+   url(r'^question/(?P<question_pk>\d+)/answer/update/(?P<answer_pk>\d+)/$', AnswerUpdateView.as_view(), name='answer_update'),
 )
