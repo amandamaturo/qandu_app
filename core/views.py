@@ -74,3 +74,11 @@ class AnswerUpdateView(UpdateView):
   def get_success_url(self):
     return self.object.question.get_absolute_url()
 
+class AnswerDeleteView(DeleteView):
+  model = Answer
+  pk_url_kwarg = 'answer_pk'
+  template_name = 'answer/answer_confirm_delete.html'
+
+  def get_success_url(self):
+    return self.object.question.get_absolute_url()
+
