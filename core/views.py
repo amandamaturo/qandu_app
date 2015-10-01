@@ -45,3 +45,15 @@ class QuestionDeleteView(DeleteView):
   template_name = 'question/question_confirm_delete.html'
   success_url = reverse_lazy('question_list')
 
+class AnswerCreateView(CreateView):
+  model = Answer
+  template_name = "answer/answer_form.html"
+  fields = ['text']
+
+  def get_success_url(self):
+    return self.object.question.get_absolute_url()
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    form.instance.question = Question.objects.get(id=self.kwargs['pk'])
+    return super(AnswerCreateView, self).form_valid(form)
