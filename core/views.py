@@ -31,6 +31,13 @@ class QuestionDetailView(DetailView):
   model = Question
   template_name = 'question/question_detail.html'
 
+  def get_context_data(self, **kwargs):
+    context = super(QuestionDetailView, self).get_context_data(**kwargs)
+    question = Question.objects.get(id=self.kwargs['pk'])
+    answers = Answer.objects.filter(question=question)
+    context['answers'] = answers
+    return context
+
 from django.views.generic import UpdateView
 
 class QuestionUpdateView(UpdateView):
