@@ -37,6 +37,8 @@ class QuestionDetailView(DetailView):
     question = Question.objects.get(id=self.kwargs['pk'])
     answers = Answer.objects.filter(question=question)
     context['answers'] = answers
+    user_answers = Answer.objects.filter(question=question, user=self.request.user)
+    context['user_answers'] = user_answers
     return context
 
 from django.views.generic import UpdateView

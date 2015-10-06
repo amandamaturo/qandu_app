@@ -20,5 +20,7 @@
   <p>Answered by {{ answer.user.username }} on {{ answer.created_at }}</p>
 </div>
 {% endfor %}
+{% if not user_answers %}
 <p><a href="{% url 'answer_create' pk=question.id %}">Write answer</a></p>
+{% endif %}
 {% endblock %}
