@@ -4,6 +4,13 @@
 <div class="panel">
   <h3><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h3>
   <p>Asked by {{ question.user.username }} on {{ question.created_at }}</p>
+  <p>{{ question.vote_set.all.count }} Vote{{ question.vote_se.all.count|pluralize }}</p>
+  <form method='post' action="{% url 'vote' %}">
+    {% csrf_token %}
+    <input type="hidden" name="question" value="{{ question.id }}" />
+    <input type="hidden" name="user" value="{{ question.id }}" />
+    <button>+</button>
+  </form>
 </div>
 {% endfor %}
 {% endblock %}
