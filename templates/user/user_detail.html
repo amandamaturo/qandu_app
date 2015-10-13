@@ -4,4 +4,13 @@
 <p>Email address: {{ user_in_view.email }}</p>
 <p>First name: {{ user_in_view.first_name }}</p>
 <p>Last name: {{ user_in_view.last_name }}</p>
+<h3>Questions ({{ questions.count }})</h3>
+{% for question in questions %}
+<p><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></p>
+{% endfor %}
+<h3>Answers ({{ answers.count }})</h3>
+{% for answer in answers %}
+  <p><a href="{{ answer.question.get_absolute_url }}">{{ answer.question.title }}</a></p>
+  <p>> {{ answer.text }}</p>
+{% endfor %}
 {% endblock %}
