@@ -154,3 +154,18 @@ class UserDetailView(DetailView):
     answers = Answer.objects.filter(user=user_in_view)
     context['answers'] = answers
     return context
+
+class UserUpdateView(UpdateView):
+  model = User
+  slug_field = "username"
+  template_name = "user/user_form.html"
+  fields = ['email', 'first_name', 'last_name']
+
+  def get_succes_url(self):
+    return reverse('user detail', args=[self.request.user.username])
+
+  def get_object(self, *args, **kwargs):
+    object = super(UserUpdateView, self).get_object(*args, **kwargs)
+    if object != self.request.user:
+      raise PermissionDenied()
+    return object
