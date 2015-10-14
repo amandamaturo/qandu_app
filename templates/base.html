@@ -24,6 +24,9 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                   {% if user.is_authenticated %}
+                  <form action="{% url 'search' %}" class="navbar-form navbar-left" method="get">
+                    <input type="text" placeholder="Search" class="form-control" name="query">
+                  </form>
                   <li><a href="{% url 'question_list' %}">Questions</a></li>
                   <li><a href="{% url 'question_create' %}">Add question</a></li>
                   <li><a href="{% url 'user_detail' slug=user.username %}">Profile</a></li>

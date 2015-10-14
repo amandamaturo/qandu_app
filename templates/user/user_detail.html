@@ -6,6 +6,7 @@
 <p>Last name: {{ user_in_view.last_name }}</p>
 {% if user_in_view == user %}
 <p><a href="{% url 'user_update' slug=user.username %}">Edit profile</a></p>
+<p><a href="{% url 'user_delete' slug=user.username %}">Delete account</a></p>
 {% endif %}
 <h3>Questions ({{ questions.count }})</h3>
 {% for question in questions %}
