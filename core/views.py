@@ -25,6 +25,7 @@ from django.views.generic import ListView
 class QuestionListView(ListView):
    model = Question
    template_name = "question/question_list.html"
+   paginate_by = 5
 
 from django.views.generic import DetailView
 
