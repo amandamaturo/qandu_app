@@ -17,13 +17,23 @@
   <p><a href="{% url 'answer_update' question_pk=question.id answer_pk=answer.id %}">Edit answer</a></p>
   <p><a href="{% url 'answer_delete' question_pk=question.id answer_pk=answer.id %}">Delete answer</a></p>
   {% endif %}
-  <p>Answered {% if answer.visibility == 0 %} by <a href="{% url 'user_detail' slug=answer.user.username %}">{{ answer.user.username }}</a> {% endif %} on {{ answer.created_at }} ({{answer.vote_set.all.count }} Vote{{ answer.vote_set.all.count|pluralize }})</p>
-  <form method="post" action="{% url 'vote' %}">
+  <p>Answered {% if answer.visibility == 0 %} by <a href="{% url 'user_detail' slug=answer.user.username %}">{{ answer.user.username }}</a> {% endif %} on {{ answer.created_at }}</p>
+<form method="post" action="{% url 'vote' %}">
+    <span class="badge">{{ answer.vote_set.all.count }} Vote{{  answer.vote_set.all.count|pluralize }}</span>
     {% csrf_token %}
     <input type="hidden" name="answer" value="{{ answer.id }}" />
     <input type="hidden" name="question" value="{{ question.id }}" />
     <input type="hidden" name="user" value="{{ user.id }}" />
-  </form>
+    {% if answer in user_votes %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
+    {% else %}
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+    {% endif %}
+</form>
 
 </div>
 {% endfor %}

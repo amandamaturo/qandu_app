@@ -27,6 +27,12 @@ class QuestionListView(ListView):
    template_name = "question/question_list.html"
    paginate_by = 5
 
+def get_context_data(self, **kwargs):
+    context + super(QuestionListView, self).get_context_data(**kwargs)
+    user_votes = Question.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
+    return context
+
 from django.views.generic import DetailView
 
 class QuestionDetailView(DetailView):
@@ -40,6 +46,8 @@ class QuestionDetailView(DetailView):
     context['answers'] = answers
     user_answers = Answer.objects.filter(question=question, user=self.request.user)
     context['user_answers'] = user_answers
+    user_votes = Answer.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
     return context
 
 from django.views.generic import UpdateView
@@ -71,7 +79,7 @@ class QuestionDeleteView(DeleteView):
 class AnswerCreateView(CreateView):
   model = Answer
   template_name = "answer/answer_form.html"
-  fields = ['title', 'description', 'visibility']
+  fields = ['title', 'visibility']
 
   def get_success_url(self):
     return self.object.question.get_absolute_url()
@@ -150,9 +158,9 @@ class UserDetailView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(UserDetailView, self).get_context_data(**kwargs)
     user_in_view = User.objects.get(username=self.kwargs['slug'])
-    questions = Question.objects.filter(user=user_in_view)
+    questions = Question.objects.filter(user=user_in_view).exclude(visibility=1)
     context['questions'] = questions
-    answers = Answer.objects.filter(user=user_in_view)
+    answers = Answer.objects.filter(user=user_in_view).exclude(visibility=1)
     context['answers'] = answers
     return context
 
